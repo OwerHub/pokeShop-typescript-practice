@@ -2,11 +2,19 @@
   text-align: center;
 }
 
+.pokeshop{
+  margin: 1rem;
+  padding: 0 1rem 1rem;
+  border: 2px solid red;
+  border-radius: 1rem;
+}
+
 .cardContainer{
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
+ 
 }
 
 .cardOuter{
@@ -26,4 +34,10 @@
 
 .priceValue {
   font-weight: bold;
+}
+
+.headermenu{
+  display: flex;
+  padding: 1rem 2rem;
+  justify-content: space-around;
 }

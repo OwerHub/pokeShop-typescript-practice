@@ -42,26 +42,27 @@ function App() {
   
   return (
     <div className="App">
-        <h1>Pokemon Typescript</h1>
-        <HeaderComponent
-          money={isMoney}
-          changePrice = {(isMoney) => setMoney(isMoney)}
-          />
-      <div className="cardContainer">
-        {isPokeArray?.map((pokemon, iterator) => (
-         
-          <CardComponent 
-              key = {`card${iterator}`}
-              name = {pokemon.name}
-              weigth = {pokemon.weigth}
-              photo = {pokemon.photo}
-              money = {isMoney}
-              changePrice = {(isMoney) => setMoney(isMoney)}
+      <HeaderComponent
+        money={isMoney}
+        changePrice={(isMoney) => setMoney(isMoney)}
+      />
+
+      <div className="pokeshop">
+        <h2>PokeShop</h2>
+        <div className="cardContainer">
+
+          {isPokeArray?.map((pokemon, iterator) => (
+            <CardComponent
+              key={`card${iterator}`}
+              name={pokemon.name}
+              weigth={pokemon.weigth}
+              photo={pokemon.photo}
+              money={isMoney}
+              changePrice={(isMoney) => setMoney(isMoney)}
             />
-            ))}
-
+          ))}
+        </div>
       </div>
-
     </div>
   );
 }

@@ -11,11 +11,15 @@ export const HeaderComponent = (props: IheaderProps) => {
 
     return (
         <div>
-            This is headerComponent
-            <div>
-                money is {props.money}
+            <h1>Pokemon Shop</h1>
+            <h2>typescript execise</h2>
+            <div className="headermenu">
+                <div>
+                    money is {props.money}$
+                </div>
+                <button onClick={()=> moneyplus()}>Gimme Money</button>
             </div>
-            <button onClick={()=> moneyplus()}>Gimme Money</button>
+      
         </div>
     )
 }
