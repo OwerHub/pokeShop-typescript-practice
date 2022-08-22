@@ -24,10 +24,7 @@ function App() {
   const [isMoney, setMoney] = useState<number>(50000);
   const [isActualURL, setActualURL] = useState<string>("https://pokeapi.co/api/v2/pokemon?limit=10")
   const [isNeighbourURL, setNeighbourURL] =  useState<IneighbourURL>()
-  // need pageChange
-    // url to usestate
-    // nexpage, previouspage URL to state
-    // when url change, fetch again
+
 
   const buyedaPokemon = (name:string) => {
 
