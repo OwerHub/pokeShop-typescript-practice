@@ -5,8 +5,8 @@ interface IheaderProps {
 
 export const HeaderComponent = (props: IheaderProps) => {
 
-    const moneyplus = () => {
-        props.changePrice(props.money + 100000)
+    const moneyplus = (apanage:number) => {
+        props.changePrice(props.money + apanage)
     }
 
     return (
@@ -17,7 +17,11 @@ export const HeaderComponent = (props: IheaderProps) => {
                 <div>
                     money is {props.money}$
                 </div>
-                <button onClick={()=> moneyplus()}>Gimme Money</button>
+                <div className="buttonContainer">
+                    <button onClick={()=> moneyplus(5000)}>Gimme Money</button>
+                    <button onClick={()=> moneyplus(20000)}>Gimme more Money</button>
+                    <button onClick={()=> moneyplus(50000)}>Gimme all f*** money</button>
+                </div>
             </div>
       
         </div>

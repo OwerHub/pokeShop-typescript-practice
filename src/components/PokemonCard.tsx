@@ -13,7 +13,7 @@ export const  CardComponent = (props:IcardProps) => {
         props.changePrice(props.money - (props.weigth*100))
     }
 
-    
+
     const buyFunction = ()=> {
         moneyMinus()
 
