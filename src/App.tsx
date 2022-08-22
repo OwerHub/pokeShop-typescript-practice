@@ -67,11 +67,15 @@ function App() {
     setPokeArray(fetchedDatas);
   };
 
-  const BuyingHandle =(pokemondObject:IpokemonDatas)=> {
-    console.log("buyingHandle Works")
-    console.log(pokemondObject.name)
-
+  const BuyingHandle =(pokemondObject:IpokemonDatas)=> { 
     setOwnPokemon(previous =>[ ...previous, pokemondObject])
+    setMoney(previous => previous - pokemondObject.weigth * 100)
+  }
+
+  const verifyIsBuyed = (name: string) =>{
+    return (isOwnPokemons.some((pokemon) => {
+      return (pokemon.name === name)
+    }))
   }
 
 
@@ -97,7 +101,7 @@ function App() {
               weigth={pokemon.weigth}
               photo={pokemon.photo}
               money={isMoney}
-              isBuyed={false}  // need a compare function this pokemon is exist of isOwnPokemons          
+              isBuyed={verifyIsBuyed(pokemon.name)}  // need a compare function this pokemon is exist of isOwnPokemons          
 
                 // first solution change price
               changePrice={(isMoney) => setMoney(isMoney)}
