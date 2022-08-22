@@ -14,11 +14,16 @@ interface IpokemonDatas {
   photo: string;
 }
 
+interface IneighbourURL {
+  prev?: string 
+  next?: string
+}
+
 function App() {
   const [isPokeArray, setPokeArray] = useState<IpokemonDatas[] | null>();
   const [isMoney, setMoney] = useState<number>(50000);
-
-
+  const [isActualURL, setActualURL] = useState<string>("https://pokeapi.co/api/v2/pokemon?limit=10")
+  const [isNeighbourURL, setNeighbourURL] =  useState<IneighbourURL>()
   // need pageChange
     // url to usestate
     // nexpage, previouspage URL to state
@@ -32,9 +37,15 @@ function App() {
       // + pokeFetch verify the same pokemons in OwnPokeArray and isPokearray
   } 
 
+
   const pokeFetch = async () => {
-    const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=10");
+    const response = await fetch(isActualURL);
     const data = await response.json();
+
+
+    // I could merge this lines, but I need them later
+    setNeighbourURL(prevState=>({...prevState,  next: data.next}) )
+    setNeighbourURL(prevState=>({...prevState,  prev: data.previous}) )
 
     let arrayOfPokeURL = data.results.map(
       (pokeData: IpokeReturn) => pokeData.url
@@ -59,7 +70,7 @@ function App() {
 
   useEffect(() => {
     pokeFetch();
-  }, []);
+  }, [isActualURL]);
 
   return (
     <div className="App">
@@ -81,6 +92,14 @@ function App() {
               changePrice={(isMoney) => setMoney(isMoney)}
             />
           ))}
+        </div>
+        <div className="pageButtons">
+          {isNeighbourURL?.prev && 
+            <button onClick={()=>setActualURL(isNeighbourURL.prev as string)}> previous</button>
+          }
+          {isNeighbourURL?.next && 
+            <button onClick={()=>setActualURL(isNeighbourURL.next as string) } > Next</button>
+          }
         </div>
       </div>
     </div>
