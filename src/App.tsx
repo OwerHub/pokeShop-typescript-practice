@@ -16,7 +16,7 @@ interface IpokemonDatas {
 
 interface IneighbourURL {
   prev?: string 
-  next?: string
+  next?: string 
 }
 
 function App() {
@@ -30,7 +30,6 @@ function App() {
 
     // delete a pokemon from isPokeArray
     // add pokemon to OwnPokeArray
-
       // + pokeFetch verify the same pokemons in OwnPokeArray and isPokearray
   } 
 
@@ -41,8 +40,8 @@ function App() {
 
 
     // I could merge this lines, but I need them later
-    setNeighbourURL(prevState=>({...prevState,  next: data.next}) )
-    setNeighbourURL(prevState=>({...prevState,  prev: data.previous}) )
+    setNeighbourURL(prevState=>({...prevState,  next: data?.next}) )
+    setNeighbourURL(prevState=>({...prevState,  prev: data?.previous}) )
 
     let arrayOfPokeURL = data.results.map(
       (pokeData: IpokeReturn) => pokeData.url
@@ -80,6 +79,7 @@ function App() {
         <h2>PokeShop</h2>
         <div className="cardContainer">
           {isPokeArray?.map((pokemon, iterator) => (
+
             <CardComponent
               key={`card${iterator}`}
               name={pokemon.name}
@@ -88,6 +88,7 @@ function App() {
               money={isMoney}
               changePrice={(isMoney) => setMoney(isMoney)}
             />
+            
           ))}
         </div>
         <div className="pageButtons">
