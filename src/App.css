@@ -26,10 +26,17 @@
 
 .cardOuter h3{
   text-transform: uppercase;
+ 
 }
 
 .cardOuter img{
   width: 60%;
+  transition: transform .3s ease-in-out;
+}
+
+.cardOuter img:hover{
+  transform: scale(1.7);
+
 }
 
 .priceValue {

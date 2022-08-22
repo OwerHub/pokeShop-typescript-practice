@@ -1,45 +1,63 @@
-import React, {useEffect, useState} from 'react';
-import './App.css';
-import  {CardComponent} from "./components/PokemonCard"
-import {HeaderComponent} from "./components/Header"
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import { CardComponent } from "./components/PokemonCard";
+import { HeaderComponent } from "./components/Header";
 
 interface IpokeReturn {
-  name: string
-  url: string
+  name: string;
+  url: string;
 }
 
 interface IpokemonDatas {
-  name: string
-  weigth: number
-  photo: string
+  name: string;
+  weigth: number;
+  photo: string;
 }
 
 function App() {
+  const [isPokeArray, setPokeArray] = useState<IpokemonDatas[] | null>();
+  const [isMoney, setMoney] = useState<number>(50000);
 
-  const [isPokeArray, setPokeArray] = useState<IpokemonDatas[] | null >()
-  const [isMoney, setMoney] = useState<number>(50000)
+
+  // need pageChange
+
+  const buyedaPokemon = (name:string) => {
+
+    // delete a pokemon from isPokeArray
+    // add pokemon to OwnPokeArray
+
+      // + pokeFetch verify the same pokemons in OwnPokeArray and isPokearray
+  } 
 
   const pokeFetch = async () => {
+    const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=10");
+    const data = await response.json();
 
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
-    const data = await response.json()
+    let arrayOfPokeURL = data.results.map(
+      (pokeData: IpokeReturn) => pokeData.url
+    );
 
-    let arrayOfPokeURL = data.results.map((pokeData: IpokeReturn) => pokeData.url)
+    const fetchedDatas: IpokemonDatas[] = await Promise.all(
+      arrayOfPokeURL.map(async (PokeURL: string) => {
 
-    const fetchedDatas:IpokemonDatas[] = await Promise.all(arrayOfPokeURL.map( async (PokeURL:string) => {
-      const resp = await fetch(PokeURL);
-      const respJson = await resp.json()
-      return {name: respJson.name , weigth: respJson.weight, photo: respJson.sprites.front_default }
-    }))
+        const resp = await fetch(PokeURL);
+        const respJson = await resp.json();
+        
+        return {
+          name: respJson.name,
+          weigth: respJson.weight,
+          photo: respJson.sprites.front_default,
+        };
+      })
+    );
 
-    setPokeArray(fetchedDatas)
-  }
+    setPokeArray(fetchedDatas);
+  };
 
   useEffect(() => {
-      pokeFetch()
+    pokeFetch();
+  }, []);
 
-  }, [])
-  
   return (
     <div className="App">
       <HeaderComponent
@@ -50,7 +68,6 @@ function App() {
       <div className="pokeshop">
         <h2>PokeShop</h2>
         <div className="cardContainer">
-
           {isPokeArray?.map((pokemon, iterator) => (
             <CardComponent
               key={`card${iterator}`}
