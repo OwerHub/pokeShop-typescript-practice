@@ -3,7 +3,10 @@ interface IcardProps {
     weigth: number
     photo: string
     money : number
+    isBuyed: boolean
     changePrice : (num: number)=> void
+    handleClick : (event: React.MouseEvent<HTMLButtonElement>, id:number) => void
+
 }
 
 
@@ -27,10 +30,18 @@ export const  CardComponent = (props:IcardProps) => {
         </div>
         <div className="priceValue"> {props.weigth *100} $</div>
 
+        {/* first solution to buy */}
         <div>
             {props.money > props.weigth *100 ?
                 <button onClick={()=>buyFunction()}   >Buy Me</button>   :
                 <div>Not Enough</div> 
+            }
+        </div>
+
+        {/* second solution to buy */}
+        <div>
+            {props.money >props.weigth*100 &&
+             <button onClick={(event) => props.handleClick(event, 1)}>Buy Me 2</button> 
             }
         </div>
     </div> )

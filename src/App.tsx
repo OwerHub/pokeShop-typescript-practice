@@ -21,9 +21,12 @@ interface IneighbourURL {
 
 function App() {
   const [isPokeArray, setPokeArray] = useState<IpokemonDatas[] | null>();
+  const [isOwnPokemons, setOwnPokemon] = useState<IpokemonDatas[]>([])
+
+  const [isNeighbourURL, setNeighbourURL] =  useState<IneighbourURL>()
   const [isMoney, setMoney] = useState<number>(50000);
   const [isActualURL, setActualURL] = useState<string>("https://pokeapi.co/api/v2/pokemon?limit=10")
-  const [isNeighbourURL, setNeighbourURL] =  useState<IneighbourURL>()
+  
 
 
   const buyedaPokemon = (name:string) => {
@@ -64,6 +67,14 @@ function App() {
     setPokeArray(fetchedDatas);
   };
 
+  const BuyingHandle =(pokemondObject:IpokemonDatas)=> {
+    console.log("buyingHandle Works")
+    console.log(pokemondObject.name)
+
+    setOwnPokemon(previous =>[ ...previous, pokemondObject])
+  }
+
+
   useEffect(() => {
     pokeFetch();
   }, [isActualURL]);
@@ -86,7 +97,20 @@ function App() {
               weigth={pokemon.weigth}
               photo={pokemon.photo}
               money={isMoney}
+              isBuyed={false}  // need a compare function this pokemon is exist of isOwnPokemons          
+
+                // first solution change price
               changePrice={(isMoney) => setMoney(isMoney)}
+                // second solution, add event (I dont need an event or ID, just practice)
+              handleClick={(event, id)=> {
+                console.log("U Pushed Me" , event.target, "id: ", id)
+                BuyingHandle({
+                  name:pokemon.name,
+                  weigth: pokemon.weigth,
+                  photo: pokemon.photo
+                } )
+              }}
+      
             />
             
           ))}
@@ -98,8 +122,39 @@ function App() {
           {isNeighbourURL?.next && 
             <button onClick={()=>setActualURL(isNeighbourURL.next as string) } > Next</button>
           }
-        </div>
+        </div>  
       </div>
+          
+      <div className="pokeshop">
+        <h2>MyPokeMons</h2>
+        <div className="cardContainer">
+          {isOwnPokemons?.map((pokemon, iterator) => (
+
+            <CardComponent
+              key={`card${iterator}`}
+              name={pokemon.name}
+              weigth={pokemon.weigth}
+              photo={pokemon.photo}
+              money={isMoney}
+              isBuyed={true}    
+
+                // first solution change price
+                    // add an ID to set sell or buy
+              changePrice={(isMoney) => setMoney(isMoney)}
+              handleClick={(event, id)=> {
+                console.log("U Pushed Me" , event.target, "id: ", id)
+                BuyingHandle({
+                  name:pokemon.name,
+                  weigth: pokemon.weigth,
+                  photo: pokemon.photo
+                } )
+              }}
+      
+            />
+            
+          ))}
+        </div>
+      </div>   
     </div>
   );
 }
