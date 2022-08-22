@@ -11,7 +11,7 @@ export const HeaderComponent = (props: IheaderProps) => {
 
     return (
         <div>
-            <h1>Pokemon Shop</h1>
+            <h1>Pokemon Shop 0.5 version</h1>
             <h2>typescript execise</h2>
             <div className="headermenu">
                 <div>

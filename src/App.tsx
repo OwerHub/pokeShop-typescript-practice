@@ -20,6 +20,9 @@ function App() {
 
 
   // need pageChange
+    // url to usestate
+    // nexpage, previouspage URL to state
+    // when url change, fetch again
 
   const buyedaPokemon = (name:string) => {
 
