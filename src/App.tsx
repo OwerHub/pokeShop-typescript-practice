@@ -27,16 +27,6 @@ function App() {
   const [isMoney, setMoney] = useState<number>(50000);
   const [isActualURL, setActualURL] = useState<string>("https://pokeapi.co/api/v2/pokemon?limit=10")
   
-
-
-  const buyedaPokemon = (name:string) => {
-
-    // delete a pokemon from isPokeArray
-    // add pokemon to OwnPokeArray
-      // + pokeFetch verify the same pokemons in OwnPokeArray and isPokearray
-  } 
-
-
   const pokeFetch = async () => {
     const response = await fetch(isActualURL);
     const data = await response.json();
@@ -107,14 +97,13 @@ function App() {
               changePrice={(isMoney) => setMoney(isMoney)}
                 // second solution, add event (I dont need an event or ID, just practice)
               handleClick={(event, id)=> {
-                console.log("U Pushed Me" , event.target, "id: ", id)
+                /* console.log("U Pushed Me" , event.target, "id: ", id) */
                 BuyingHandle({
                   name:pokemon.name,
                   weigth: pokemon.weigth,
                   photo: pokemon.photo
                 } )
               }}
-      
             />
             
           ))}
@@ -143,10 +132,10 @@ function App() {
               isBuyed={true}    
 
                 // first solution change price
-                    // add an ID to set sell or buy
+                    // could add an ID to set sell or buy
               changePrice={(isMoney) => setMoney(isMoney)}
               handleClick={(event, id)=> {
-                console.log("U Pushed Me" , event.target, "id: ", id)
+                /* console.log("U Pushed Me" , event.target, "id: ", id) */
                 BuyingHandle({
                   name:pokemon.name,
                   weigth: pokemon.weigth,
